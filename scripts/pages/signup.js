@@ -4,6 +4,7 @@ import LoginPage from "./login.js";
 import { login } from "../services/session-services.js";
 import { signup } from "../services/user-services.js";
 import { HomePage } from "./home.js";
+import STORE from "../store.js";
 
 function renderSignup() {
   const { SignupError } = SignupPage.state;
@@ -84,7 +85,7 @@ function listenSubmit() {
       setTimeout(function () {
         // loadingPage();
         setTimeout(async () => {
-          // await STORE.fetchContacts();
+          await STORE.fetchTasks();
           DOMHandler.load(HomePage);
         }, 500);
       }, 500);
