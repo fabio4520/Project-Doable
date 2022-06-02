@@ -3,9 +3,11 @@ export const renderCard= (task) => {
   <li>
     <div class="option-checkbox">
       <input 
+        data-id=${task.id}
         type="checkbox" 
-        id="important" 
-        name="important" 
+        id="important-${task.important}" 
+        name="important"
+        class="checkbox-important"
         value="important"
         ${task.completed ? "checked" : ""}
       >

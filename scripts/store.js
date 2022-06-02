@@ -20,6 +20,14 @@ function deleteTask(id) {
   this.important = this.favorites.filter((task) => task.id != id);
   this.pending = this.favorites.filter((task) => task.id != id);
 }
+function completedTask(id) {
+  const taskId = this.tasks.find(t => t.id == id)
+  this.completed.push(taskId)
+}
+function pendingTasks(id) {
+  const taskId = this.tasks.find(t => t.id == id)
+  this.pending.push(taskId)
+}
 
 let STORE = {
   tasks: [],
@@ -27,7 +35,9 @@ let STORE = {
   pending: [],
   importants: [],
   fetchTasks,
-  deleteTask
+  deleteTask,
+  completedTask,
+  pendingTasks
 };
 
 export default STORE;

@@ -2,6 +2,7 @@ import { renderHeader } from "../components/header.js";
 import STORE from "../store.js";
 import { renderCard } from "./cardTask.js";
 import DOMHandler from "../dom-handler.js"
+import { editTasks } from "../services/tasks-services.js";
 
 function renderHome() {
   // console.log(STORE.tasks)
@@ -98,17 +99,35 @@ function listenSort() {
   
   
 }
+function listenToComplete() {
+  let completed = document.querySelectorAll(".checkbox-important")
+  
+  completed.forEach(c => {
+    c.addEventListener('change', async (event) => {
+      console.log(c);
+      try {
+        const completedLink = event.target.closest("[data-id]");
+        const id = completedLink.dataset.id;
+
+        if (STORE.completed.find((e) => e.id == id)) {
+          await editTasks(id, { completed: false }); // request api
+          STORE.pendingTasks(id);
+        } else {
+          await editTasks(id, { completed: true }); // request api
+          STORE.completedTask(id);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    })
+  })
+}
 export const HomePage = {
   toString() {
     return renderHome();
   },
   addListeners() {
-    listenSort()
-    // listenCreate(),
-    //   calcMainAddBtn(),
-    //   listenToUnFavorite(),
-    //   listenLogout(),
-    //   listenToFavorite(),
-    //   openContact();
+    listenSort(),
+    listenToComplete()
   },
 };
