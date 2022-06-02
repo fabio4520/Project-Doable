@@ -6,7 +6,7 @@ async function fetchTasks() {
   this.completed = tasks
     .filter((task) => task.completed === true)
     .reverse();
-  this.important = tasks
+  this.importants = tasks
     .filter((task) => task.important === true)
     .reverse();
   this.pending = tasks
@@ -23,10 +23,17 @@ function deleteTask(id) {
 function completedTask(id) {
   const taskId = this.tasks.find(t => t.id == id)
   this.completed.push(taskId)
+  this.pending.splice(taskId, 1)
 }
 function pendingTasks(id) {
   const taskId = this.tasks.find(t => t.id == id)
   this.pending.push(taskId)
+  this.completed.splice(taskId, 1)
+}
+
+function importantTasks(id) {
+  const taskId = this.tasks.find(t => t.id == id)
+  this.importants.push(taskId)
 }
 
 let STORE = {
@@ -37,7 +44,8 @@ let STORE = {
   fetchTasks,
   deleteTask,
   completedTask,
-  pendingTasks
+  pendingTasks,
+  importantTasks
 };
 
 export default STORE;

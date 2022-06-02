@@ -39,7 +39,6 @@ function renderHome() {
       }
     </ul>
 
-
     <form action="" class="form">
       <input type="text" name="title" id="title" placeholder="do the dishes...">
       <input type="date" name="dueDate" id="dueDate">
@@ -126,16 +125,11 @@ function listenAddTask() {
   const form = document.querySelector(".form")
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
-    try {
-      
-      
+    try {      
       const credentials = {
         title: document.querySelector("#title").value,
         due_date: document.querySelector("#dueDate").value
       }
-      
-      console.log(credentials);
-
       setTimeout(function () {
         // loadingPage();
         setTimeout(async () => {
@@ -149,6 +143,51 @@ function listenAddTask() {
     }
   })
 }
+function listenToNoImportant() {
+  let important = document.querySelectorAll(".no-important")
+
+  important.forEach(i => {
+    i.addEventListener('click', async (event) => {
+      console.log(i);
+      try {
+        i.classList.remove("no-important")
+        i.classList.add("important")
+        const importantLink = event.target.closest("[data-id]");
+        const id = importantLink.dataset.id;
+
+        const a = await editTasks(id, { important: true }); // request api
+        console.log(a);
+        // DOMHandler.reload();
+      } catch (error) {
+        console.log(error);
+      }
+      DOMHandler.reload();
+    })
+  })
+}
+function listenToImportant() {
+  let important = document.querySelectorAll(".important")
+
+  important.forEach(i => {
+    i.addEventListener('click', async (event) => {
+      console.log(i);
+      try {
+        i.classList.add("no-important")
+        i.classList.remove("important")
+        const importantLink = event.target.closest("[data-id]");
+        const id = importantLink.dataset.id;
+
+        const a = await editTasks(id, { important: false }); // request api
+        console.log(a);
+        // DOMHandler.reload();
+       
+      } catch (error) {
+        console.log(error);
+      }
+      DOMHandler.reload();
+    })
+  })
+}
 export const HomePage = {
   toString() {
     return renderHome();
@@ -156,6 +195,8 @@ export const HomePage = {
   addListeners() {
     listenSort(),
       listenToComplete(),
-      listenAddTask()
+      listenAddTask(),
+      listenToNoImportant(),
+      listenToImportant()
   },
 };

@@ -16,7 +16,7 @@ export const renderCard= (task) => {
       </label><br>
     </div>
 
-    <i class="fa fa-info-circle ${task.important ? "important" : ""}" aria-hidden="true"></i>
+    <i data-id=${task.id} class="fa fa-info-circle ${task.important ? "important" : "no-important"}" aria-hidden="true"></i>
   </li>
   ${task.due_date ?
     `<p>${(new Date(task.due_date)).toDateString()}</p>` :
