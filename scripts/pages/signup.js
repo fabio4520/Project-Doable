@@ -1,6 +1,9 @@
 import { renderInput } from "../components/input.js";
 import DOMHandler from "../dom-handler.js";
 import LoginPage from "./login.js";
+import { login } from "../services/session-services.js";
+import { signup } from "../services/user-services.js";
+import { HomePage } from "./home.js";
 
 function renderSignup() {
   const { SignupError } = SignupPage.state;
@@ -48,7 +51,7 @@ function renderSignup() {
 </main>`;
 }
 
-function listenLogin() {
+function listenLoginBtn() {
   const loginBtn = document.querySelector("#login-btn")
   loginBtn.addEventListener("click", (event) => {
     event.preventDefault();
@@ -63,12 +66,43 @@ function listenLogin() {
   })
 }
 
+function listenSubmit() {
+  const form = document.querySelector(".form");
+  form.addEventListener("submit", async (event) => {
+    document.querySelector("#submit-btn").classList.toggle("is-loading");
+    try {
+      event.preventDefault();
+      const { email, password } = event.target;
+      const credentials = {
+        email: email.value,
+        password: password.value,
+      };
+
+      await signup(credentials);
+      await login(credentials);
+
+      setTimeout(function () {
+        // loadingPage();
+        setTimeout(async () => {
+          // await STORE.fetchContacts();
+          DOMHandler.load(HomePage);
+        }, 500);
+      }, 500);
+    } catch (error) {
+      SignupPage.state.SignupError = error.message;
+      setTimeout(function () {
+        DOMHandler.reload();
+      }, 800);
+    }
+  });
+}
+
 const SignupPage = {
   toString() {
     return renderSignup();
   },
   addListeners() {
-    return listenLogin();
+    return listenLoginBtn(), listenSubmit();
   },
   state: {
     SignupError: null,
