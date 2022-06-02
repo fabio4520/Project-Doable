@@ -2,7 +2,7 @@ import { renderHeader } from "../components/header.js";
 import STORE from "../store.js";
 import { renderCard } from "./cardTask.js";
 import DOMHandler from "../dom-handler.js"
-import { editTasks } from "../services/tasks-services.js";
+import { createTasks, editTasks } from "../services/tasks-services.js";
 
 function renderHome() {
   // console.log(STORE.tasks)
@@ -122,12 +122,40 @@ function listenToComplete() {
     })
   })
 }
+function listenAddTask() {
+  const form = document.querySelector(".form")
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    try {
+      
+      
+      const credentials = {
+        title: document.querySelector("#title").value,
+        due_date: document.querySelector("#dueDate").value
+      }
+      
+      console.log(credentials);
+
+      setTimeout(function () {
+        // loadingPage();
+        setTimeout(async () => {
+          const newCard = await createTasks(credentials)
+          STORE.tasks.push(newCard)
+          DOMHandler.reload();
+        }, 500);
+      }, 500);
+    } catch (error) {
+      console.log(error);
+    }
+  })
+}
 export const HomePage = {
   toString() {
     return renderHome();
   },
   addListeners() {
     listenSort(),
-    listenToComplete()
+      listenToComplete(),
+      listenAddTask()
   },
 };
