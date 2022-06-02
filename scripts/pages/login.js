@@ -3,6 +3,7 @@ import DOMHandler from "../dom-handler.js";
 import { login } from "../services/session-services.js";
 import SignupPage from "./signup.js";
 import { HomePage } from "./home.js"
+import STORE from "../store.js";
 
 function renderLogin() {
   const { loginError } = LoginPage.state;
@@ -81,7 +82,7 @@ function listenSubmit() {
       setTimeout(function () {
         // loadingPage();
         setTimeout(async () => {
-          // await STORE.fetchContacts();
+          await STORE.fetchTasks();
           DOMHandler.load(HomePage);
         }, 500);
       }, 500);
