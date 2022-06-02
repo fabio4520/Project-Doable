@@ -31,7 +31,7 @@ function renderHome() {
       </div>
     </div>
     
-    <ul>
+    <ul id="ul-cards">
       ${
     STORE.tasks
         .map(task => renderCard(task))
@@ -47,7 +47,39 @@ function renderHome() {
 
   `
 }
-
+function listenShow() {
+  const ul = document.querySelector("#ul-cards")
+  const pending = document.querySelector("#pending")
+  const important = document.querySelector("#important")
+  pending.addEventListener('change', (event) => {
+    console.log(event.target);
+    if (!pending.checked) {
+      DOMHandler.reload()
+    }
+    ul.innerHTML = `
+    ${
+      STORE.tasks
+          .filter(t => t.completed == false)
+          .map(task => renderCard(task))
+          .join("")
+        }
+    `
+  })
+  important.addEventListener('change', (event) => {
+    console.log(event.target);
+    if (!important.checked) {
+      DOMHandler.reload()
+    }
+    ul.innerHTML = `
+    ${
+      STORE.tasks
+          .filter(t => t.important == true)
+          .map(task => renderCard(task))
+          .join("")
+        }
+    `
+  })
+}
 function orderAlphabetical() {
   let alphaTasks = STORE.tasks.sort((a, b) => a.title.localeCompare(b.title))
   STORE.tasks = alphaTasks;
@@ -197,6 +229,7 @@ export const HomePage = {
       listenToComplete(),
       listenAddTask(),
       listenToNoImportant(),
-      listenToImportant()
+      listenToImportant(),
+      listenShow()
   },
 };
