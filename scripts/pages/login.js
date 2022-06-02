@@ -1,6 +1,9 @@
 import { renderInput } from "../components/input.js"
 import DOMHandler from "../dom-handler.js";
+import { login } from "../services/session-services.js";
 import SignupPage from "./signup.js";
+import { HomePage } from "./home.js"
+
 function renderLogin() {
   const { loginError } = LoginPage.state;
   return `
@@ -62,12 +65,41 @@ function listenSignup() {
   })
 }
 
+function listenSubmit() {
+  const form = document.querySelector(".form");
+  form.addEventListener("submit", async (event) => {
+    document.querySelector("#submit-btn").classList.toggle("is-loading");
+    try {
+      event.preventDefault();
+      const { email, password } = event.target;
+      const credentials = {
+        email: email.value,
+        password: password.value,
+      };
+      await login(credentials);
+
+      setTimeout(function () {
+        // loadingPage();
+        setTimeout(async () => {
+          // await STORE.fetchContacts();
+          DOMHandler.load(HomePage);
+        }, 500);
+      }, 500);
+    } catch (error) {
+      LoginPage.state.loginError = error.message;
+      setTimeout(function () {
+        DOMHandler.reload();
+      }, 1000);
+    }
+  });
+}
+
 const LoginPage = {
   toString() {
     return renderLogin();
   },
   addListeners() {
-    return listenSignup();
+    return listenSignup(), listenSubmit();
   },
   state: {
     loginError: null,
