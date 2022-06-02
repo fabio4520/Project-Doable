@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../style.css">
+  <script src="https://kit.fontawesome.com/9dc185bb5f.js" crossorigin="anonymous"></script>
+  <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
+    rel="stylesheet"
+  />
+  <title>Document</title>
+</head>
+<body>
+    <!-- header -->
+    <header class="container is-max-desktop">
+      <a class="navbar-item" href="../../index.html">
+      <h1>📝 Doable</h1>
+      </a>
+      <button id="logout-btn" class="button is-danger is-light is-small">logout</button>
+    </header>
+
+    <div>
+      <span>Sort</span>
+      <select name="" id="">
+        <option value="alphabetical">Alphabetical (a-z)</option>
+        <option value="dueDate">Due date</option>
+        <option value="importance">Importance</option>
+      </select>
+    </div>
+
+    <div>
+      <span>Show</span>
+      <div class="option-checkbox">
+        <input type="checkbox" id="pending" name="pending" value="pending">
+        <label for="pending">Pending</label><br>
+      </div>
+      <div class="option-checkbox">
+        <input type="checkbox" id="important" name="important" value="important">
+        <label for="important">Important</label><br>
+      </div>
+    </div>
+    
+    <ul>
+    
+      <li>
+        <div class="option-checkbox">
+          <input type="checkbox" id="important" name="important" value="important">
+          <label for="important">Complete assignments</label><br>
+        </div>
+        <i class="fa fa-info-circle" aria-hidden="true"></i>
+      </li>
+    
+      <li>
+        <div class="option-checkbox">
+          <input type="checkbox" id="important" name="important" value="important">
+          <label for="important">Do exercise</label><br>
+        </div>
+        <i class="fa fa-info-circle" aria-hidden="true"></i>
+      </li>
+    
+      <li>
+        <div class="option-checkbox">
+          <input type="checkbox" id="important" name="important" value="important">
+          <label for="important">Finish module evaluation</label><br>
+        </div>
+        <i class="fa fa-info-circle" aria-hidden="true"></i>
+      </li>
+    
+      <li>
+        <div class="option-checkbox">
+          <input type="checkbox" id="important" name="important" value="important">
+          <label for="important">Help my mom</label><br>
+        </div>
+        <i class="fa fa-info-circle" aria-hidden="true"></i>
+      </li>
+    
+      <li>
+        <div class="option-checkbox">
+          <input type="checkbox" id="important" name="important" value="important">
+          <label for="important">Make my bed</label><br>
+        </div>
+        <i class="fa fa-info-circle" aria-hidden="true"></i>
+      </li>
+    
+      <li>
+        <div class="option-checkbox">
+          <input type="checkbox" id="important" name="important" value="important">
+          <label for="important">Write Linkeding heading</label><br>
+        </div>
+        <i class="fa fa-info-circle" aria-hidden="true"></i>
+      </li>
+    
+
+    </ul>
+
+
+    <form action="" class="form">
+      <input type="text" name="ti+´'tle" id="title" placeholder="do the dishes...">
+      <input type="date" name="dueDate" id="dueDate">
+      <button type="submit">Add Task</button>
+    </form>
+
+  </body>
+</html>
